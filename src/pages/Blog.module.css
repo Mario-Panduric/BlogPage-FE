@@ -1,0 +1,81 @@
+.title {
+    text-align: center;         
+    font-size: 2.5rem;         
+    font-weight: bold;         
+    margin-top: 20px;           
+    margin-bottom: 10px;       
+    color: #333;                
+  }
+  
+  .paragraph {
+    text-align: center;         
+    font-size: 1.25rem;         
+    line-height: 1.6;          
+    margin: 0 auto;            
+    width: 60%;                 
+    color: #555;
+               
+  }
+
+  .paragraph p{
+    display: inline-block;
+    white-space: pre-line;
+  }
+
+  .commentsSection {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .commentsTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .commentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .commentInput {
+    padding: 10px;
+    font-size: 1rem;
+    resize: none;
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .commentButton {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .commentsList {
+    margin-top: 20px;
+  }
+  
+  .commentBox {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #fff;
+  }
+  

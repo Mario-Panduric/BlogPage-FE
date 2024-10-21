@@ -1,56 +1,48 @@
 import { useState } from 'react';
 import styles from './PostForm.module.css';
+import RichTextEditor from './RichTextEditor';
 
 const NewPostForm = ({ onSubmit }) => {
-  const [postText, setPostText] = useState('');
+  const [postText, setPostText] = useState('');  // Sadržaj editora
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (postText.trim() && title.trim()) {
-      setLoading(true);  
-      setError(null); 
+      setLoading(true);
+      setError(null);
 
       const postData = {
         title: title.trim(),
-        content: postText.trim(),
-        userID: localStorage.getItem('id')
+        content: postText,  // Sadržaj iz RichText editora
+        userID: localStorage.getItem('id'),
       };
 
       try {
-        console.log(postData)
-        const response = await fetch('https://localhost:7149/api/Posts/Post', {  
+        const response = await fetch('https://localhost:7149/api/Posts/Post', {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
           },
-          body: JSON.stringify(
-           postData
-          ),  
+          body: JSON.stringify(postData),
         });
 
         if (!response.ok) {
-          throw new Error('Nešto nije u redu sa slanjem posta'); 
+          throw new Error('Error while sending request.');
         }
 
-        const result = await response.json(); 
-        console.log('Post uspešno poslan:', result);
-
-       
+        const result = await response.json();
         onSubmit(postData);
-
-       
         setPostText('');
         setTitle('');
       } catch (error) {
-          console.error('Greška pri slanju posta:', error);
-          setError('Greška pri slanju posta. Pokušajte ponovo.');
+        setError('Error while sending request.');
       } finally {
-          setLoading(false); 
+        setLoading(false);
       }
     }
   };
@@ -58,21 +50,17 @@ const NewPostForm = ({ onSubmit }) => {
   return (
     <div className={styles.background}>
       <div className={styles.div}>
-        <form onSubmit={handleSubmit}>
-          <input 
+        <form onSubmit={handleSubmit}onKeyPress={(e) => e.key === 'Enter' && e.preventDefault()}>
+          <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
           />
-          <textarea 
-            value={postText}
-            onChange={(e) => setPostText(e.target.value)}
-            placeholder="Write your post here..."
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Submitting...' : 'Submit'}
+          <RichTextEditor onChange={setPostText} />
+          {error && <p className={styles.error}>{error}</p>}
+          <button className={styles.buttonSubmit} type="submit" disabled={loading}>
+            {loading ? 'Sending...' : 'Submit'}
           </button>
-          {error && <p className={styles.error}>{error}</p>} {}
         </form>
       </div>
     </div>

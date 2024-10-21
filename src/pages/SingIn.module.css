@@ -28,13 +28,13 @@
 .link{
     position: relative;
     top: 30%;
-    left: 35%;
+    left: 30%;
 }
 
 .button{
     position: relative;
     top: 45%;
-    left: 8%;
+    left: 0%;
     width: 30%;
     height: 10%;
     font-size: large;

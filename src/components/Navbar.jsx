@@ -11,8 +11,14 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.clear(); 
-    navigate('/');
+    navigate('/logout');
+  };
+
+  const handleHome = () => {
+    if(showForm){
+      setShowForm(false)
+    }
+    navigate('/home')
   };
 
   const handleFormSubmit = (postText) => {
@@ -22,9 +28,9 @@ const Navbar = () => {
     return (
       <>
         <ul className={styles.ul}>
-        <li className={styles.li}><a className={styles.a} href="/home">Home</a></li>
-        <li className={styles.li}><a className={styles.a} onClick={handleAddNewPost}  >Add new post</a></li>
-        <li className={styles.li}><a className={styles.a} onClick={handleLogout} >Log out</a></li>
+          <li className={styles.li}><a className={styles.a} onClick={handleHome}>Home</a></li>
+          <li className={styles.li}><a className={styles.a} onClick={handleAddNewPost}  >Add new post</a></li>
+          <li className={styles.li}><a className={styles.a} onClick={handleLogout} >Log out</a></li>
         </ul>
         {showForm && <PostForm onSubmit={handleFormSubmit} />}
       </>

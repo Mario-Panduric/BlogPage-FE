@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-function SignIn(){
+function SignIn({ setIsAuthenticated }){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 	const navigate = useNavigate();
@@ -22,8 +22,9 @@ function SignIn(){
 				if(response.status === 200){
 					localStorage.setItem('username', username)
 					const userId = response.data.id
-					console.log(userId)
-					localStorage.setItem('id', userId)				
+					localStorage.setItem('id', userId)
+					setIsAuthenticated(true)
+					localStorage.setItem('isAuthenticated', 'true');				
 					navigate('/home')
 				}
 			})
