@@ -4,21 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BlogList from '../components/BlogList.jsx';
 
+
 function Home(){
-    const [username, setUsername] = useState('');
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         
-        const storedUsername = localStorage.getItem('username');
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-        axios.get('https://localhost:7149/api/Posts') 
+        axios.get('https://localhost:7149/api/Posts', {
+            withCredentials: true},
+        ) 
         .then((response) => {
-            setBlogs(response.data);
-            console.log(response.data) 
+            setBlogs(response.data); 
         })
         .catch((error) => {
             console.error('Error fetching blogs:', error);
@@ -27,6 +24,7 @@ function Home(){
     const handleBlogClick = (id) => {
         navigate(`/blog/${id}`); 
       };
+      console.log()
     return (
         <div>
             <Navbar />

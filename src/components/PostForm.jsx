@@ -3,7 +3,7 @@ import styles from './PostForm.module.css';
 import RichTextEditor from './RichTextEditor';
 
 const NewPostForm = ({ onSubmit }) => {
-  const [postText, setPostText] = useState('');  // Sadržaj editora
+  const [postText, setPostText] = useState('');  
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +17,7 @@ const NewPostForm = ({ onSubmit }) => {
 
       const postData = {
         title: title.trim(),
-        content: postText,  // Sadržaj iz RichText editora
+        content: postText,  
         userID: localStorage.getItem('id'),
       };
 

@@ -18,7 +18,11 @@
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.3s ease;
+  }
+
+  .blogBox h2{
+    font-size: 25px;
+    overflow-wrap: break-word;
   }
   
   .blogBox:hover {

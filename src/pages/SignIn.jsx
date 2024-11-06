@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SingIn.module.css'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 
-function SignIn({ setIsAuthenticated }){
+function SignIn(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 	const navigate = useNavigate();
@@ -12,25 +12,35 @@ function SignIn({ setIsAuthenticated }){
     const handleSubmit = (e) => {
 		e.preventDefault();
 		if (username !== "" && password !== "") {
-			axios.post('https://localhost:7149/api/Users/Login', {
-				userName: username,
-				userPassword: password
-			}, {
-				headers: { 'Content-Type': 'application/json' }
+			fetch('https://localhost:7149/api/Users/Login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				credentials: 'include',
+				body: JSON.stringify({
+					userName: username,
+					userPassword: password
+				})
 			})
 			.then(response => {
-				if(response.status === 200){
-					localStorage.setItem('username', username)
-					const userId = response.data.id
-					localStorage.setItem('id', userId)
-					setIsAuthenticated(true)
-					localStorage.setItem('isAuthenticated', 'true');				
-					navigate('/home')
+				if (response.ok) {
+					window.location.reload();
+					return response.json();
+				} else {
+					throw new Error('Network response was not ok');
 				}
 			})
+			.then(data => {
+				const token = data.token;
+				const decoded = jwtDecode(token);
+				const tokenUsername = decoded.username;
+				
+			})
 			.catch(error => {
-				console.error('There has been a problem with your axios operation:', error);
+				console.error('There has been a problem with your fetch operation:', error);
 			});
+			
 		} else {
 			console.log("All fields are required!");
 		}

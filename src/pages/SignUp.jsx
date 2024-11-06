@@ -10,19 +10,25 @@ function SignUp() {
     const handleSubmit = (e) => {
 		e.preventDefault();
 		if (email !== "" && username !== "" && password !== "" && confirmPassword !== "") {
-			axios.post('https://localhost:7149/api/Users/Register', {
-				userName: username,
-				email: email,
-				userPassword: password
-			}, {
-				headers: { 'Content-Type': 'application/json' }
-			})
-			.then(response => {
-				console.log(response.data);
-			})
-			.catch(error => {
-				console.error('There has been a problem with your axios operation:', error);
-			});
+			if(password === confirmPassword){
+				axios.post('https://localhost:7149/api/Users/Register', {
+					userName: username,
+					email: email,
+					userPassword: password
+				}, {
+					headers: { 'Content-Type': 'application/json' }
+				})
+				.then(response => {
+					console.log(response.data);
+				})
+				.catch(error => {
+					console.error('There has been a problem with your axios operation:', error);
+				});
+			}
+			else{
+				alert("Password does not match");
+			}
+			
 		} else {
 			console.log("All fields are required!");
 		}

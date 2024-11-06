@@ -2,13 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx'
 
-const LogoutPage = ({ setIsAuthenticated, isAuthenticated}) => {
+const LogoutPage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
     localStorage.clear();
-    navigate('/'); 
+    fetch('https://localhost:7149/api/Users/Logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }).then(response => {if(response.status === 204){
+      navigate('/');
+      window.location.reload(); 
+    }})
+    
   };
 
   return (
