@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import styles from './SingIn.module.css'
+import styles from './SignIn.module.css'
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from "jwt-decode";
-
+import UserContext from '../components/UserContext';
+import decodeJWT from '../helpers/DecodeJWT'
 
 function SignIn(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 	const navigate = useNavigate();
+	const { loginUser } = UserContext.useUser();
 
     const handleSubmit = (e) => {
 		e.preventDefault();
@@ -24,19 +25,18 @@ function SignIn(){
 				})
 			})
 			.then(response => {
-				if (response.ok) {
-					window.location.reload();
+				if (response.ok) {		
+					navigate('/home');	
 					return response.json();
 				} else {
 					throw new Error('Network response was not ok');
 				}
 			})
-			.then(data => {
-				const token = data.token;
-				const decoded = jwtDecode(token);
-				const tokenUsername = decoded.username;
-				
-			})
+			.then(userData => {
+				let user = decodeJWT(userData);
+				console.log(user)		
+                loginUser(user);
+            })
 			.catch(error => {
 				console.error('There has been a problem with your fetch operation:', error);
 			});

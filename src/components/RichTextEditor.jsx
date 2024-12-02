@@ -95,12 +95,12 @@ const RichTextEditor = ({ onChange }) => {
           defaultValue="#000000"
         />
 
-        <button className={styles.button} onClick={toggleBold}><strong>B</strong></button>
+        <button type='button' className={styles.button} onClick={toggleBold}><strong>B</strong></button>
 
-        <button className={styles.button} onClick={toggleItalic}><em>I</em></button>
-        <button className={styles.button} onClick={toggleUnderline}><u>U</u></button>
-        <button className={styles.button} onClick={toggleStrike}><del>S</del></button>
-        <button className={styles.button} onClick={toggleHighlight}>H</button>
+        <button type='button' className={styles.button} onClick={toggleItalic}><em>I</em></button>
+        <button type='button' className={styles.button} onClick={toggleUnderline}><u>U</u></button>
+        <button type='button' className={styles.button} onClick={toggleStrike}><del>S</del></button>
+        <button type='button' className={styles.button} onClick={toggleHighlight}>H</button>
         <select onChange={(e) => handleFontSize(e.target.value)}>
             <option value="10">10px</option>
             <option value="12">12px</option>

@@ -1,24 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './PostForm.module.css';
 import RichTextEditor from './RichTextEditor';
+import getLoggedUser from '../services/GetLoggedUser.js'
 
 const NewPostForm = ({ onSubmit }) => {
   const [postText, setPostText] = useState('');  
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState('');
 
+  useEffect(() => {
+    const getUser = async() =>{
+      let user = await getLoggedUser();
+      console.log(user[0].value);
+      setUser(user[0].value);
+    }
+    getUser();
+  } ,[])
+   
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     if (postText.trim() && title.trim()) {
       setLoading(true);
       setError(null);
-
       const postData = {
         title: title.trim(),
         content: postText,  
-        userID: localStorage.getItem('id'),
+        userID: user,
       };
 
       try {
@@ -27,10 +38,11 @@ const NewPostForm = ({ onSubmit }) => {
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
+          credentials: "include"
           },
           body: JSON.stringify(postData),
         });
-
+        console.log(postData);
         if (!response.ok) {
           throw new Error('Error while sending request.');
         }
@@ -50,7 +62,7 @@ const NewPostForm = ({ onSubmit }) => {
   return (
     <div className={styles.background}>
       <div className={styles.div}>
-        <form onSubmit={handleSubmit}onKeyPress={(e) => e.key === 'Enter' && e.preventDefault()}>
+        <form onSubmit={handleSubmit}onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}

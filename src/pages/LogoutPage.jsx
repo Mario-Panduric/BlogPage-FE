@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar.jsx'
+import Navbar from '../components/Navbar.jsx';
+import styles from './LogoutPage.module.css';
 
 const LogoutPage = () => {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ const LogoutPage = () => {
       credentials: 'include',
     }).then(response => {if(response.status === 204){
       navigate('/');
-      window.location.reload(); 
     }})
     
   };
@@ -23,8 +23,10 @@ const LogoutPage = () => {
   return (
     <div>
       <Navbar/>
-      <h1>Are you sure you want to log out?</h1>
-      <button onClick={handleLogout}>Log out</button>
+      <div className={styles.content}>
+        <h1>Are you sure you want to log out?</h1>
+        <button onClick={handleLogout}>Log out</button>
+      </div>
     </div>
   );
 };

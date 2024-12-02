@@ -1,0 +1,12 @@
+.content{
+    display:flex;
+    flex-direction: column;
+    padding-top: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.content > button{
+    background-color: red;
+    padding: 0.5%;
+}

@@ -1,10 +1,17 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.content{
+  padding-top: 5%;
+}
+
 .title {
     text-align: center;         
     font-size: 2.5rem;         
-    font-weight: bold;         
-    margin-top: 20px;           
-    margin-bottom: 10px;       
-    color: #333;                
+    font-weight: bold;                        
+    color: #333;               
   }
   
   .paragraph {
@@ -79,3 +86,7 @@
     background-color: #fff;
   }
   
+  .blogInfo{
+    position: relative;
+    left: 20%;
+  }
